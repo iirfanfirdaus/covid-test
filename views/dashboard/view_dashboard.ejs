@@ -68,8 +68,8 @@ $(document).ready(function() {
                     var label = [];
                     var value = [];
                     for (var i in data) {
-                        label.push(data[i].tanggal);
-                        value.push(data[i].usia);
+                        label.push(data[i]._id);
+                        value.push(data[i].TanggalCount);
                     }
                     var ctx = document.getElementById('mycanvas').getContext('2d');
                     var chart = new Chart(ctx, {

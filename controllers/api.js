@@ -2,10 +2,12 @@ const Covid = require("../models/Covid");
 module.exports = {
     grafik1: async (req,res) => {
         try {
-            const api = await Covid.find()
-            .select('tanggal usia');
+            const data = await Covid.aggregate([
+                {$group: { _id: "$tanggal", TanggalCount:{$sum : 1}}}
+            ])
+            
             res.status(200).json({
-                ...api,
+                ...data
             });
         } catch (error) {
             console.log(error);

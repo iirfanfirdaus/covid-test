@@ -1,0 +1,55 @@
+            <!-- DataTales Example -->
+            <div class="card">
+                <div class="card-header">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-modal">
+                    <i class="fas fa-plus"></i>
+                    </button><br /><br />
+                    <form action="/covid/export" method="GET">
+                     <button type="submit" href="" class="btn-info btn-circle btn-sm">Export</button>
+                    </form>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                  <table id="dataTable" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Tanggal</th>
+                        <th>Nomor Pasien</th>
+                        <th>Usia (th)</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <% for(let i = 0; i < datacovid.length; i++) { %>
+                        <tr>
+                            <td><%= i + 1 %></td>
+                            <td><%= datacovid[i].tanggal %></td>
+                            <td><%= datacovid[i].no_pasien %></td>
+                            <td><%= datacovid[i].usia %></td>
+                            <td><%= datacovid[i].status %></td>
+                            <td>
+                              <form action="/covid/<%= datacovid[i].id %>?_method=DELETE" method="POST">
+                                <a href="javascript:void()" class="btn-warning btn-circle btn-sm button-update" data-id="<%= datacovid[i].id %>" data-tanggal="<%= datacovid[i].tanggal %>" data-no_pasien="<%= datacovid[i].no_pasien %>" data-usia="<%= datacovid[i].usia %>" data-status="<%= datacovid[i].status %>"><i class="fas fa-edit"></i></a>
+                                <button type="submit" href="" class="btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></button>
+                              </form>
+                            </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                          <th>No</th>
+                          <th>Tanggal</th>
+                          <th>Nomor Pasien</th>
+                          <th>Usia (th)</th>
+                          <th>Status</th>
+                          <th>Action</th>
+                        </tr>
+                    </tfoot>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+            <!-- End table -->

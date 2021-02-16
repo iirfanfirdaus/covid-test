@@ -1,0 +1,45 @@
+  <!-- Modal -->
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Cari <%= page %></h5>
+        </div>
+        <form action="/covid/filter" method="POST">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select class="form-control" name="status">
+                        <option value="">---Pilih Status---</option>
+                        <option value="Sembuh">Sembuh</option>
+                        <option value="Dirawat">Dirawat</option>
+                        <option value="Meninggal">Meninggal</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="usia">Usia (th)</label>
+                    <input class="form-control" name="usia" placeholder="Masukan Usia" type="number"/>
+                </div>
+                <div class="form-group">
+                    <label>Tgl Awal</label>
+                    <div class="input-group date">
+                     <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-th"></span>
+                        </div>
+                        <input id="tgl_mulai" placeholder="masukkan tanggal Awal" type="text" class="form-control datepicker" name="tgl_mulai">
+                    </div>
+                   </div>
+                   <div class="form-group">
+                    <label>Tgl Akhir</label>
+                    <div class="input-group date">
+                     <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-th"></span>
+                        </div>
+                        <input id="tgl_akhir" placeholder="masukkan tanggal Akhir" type="text" class="form-control datepicker" name="tgl_akhir">
+                    </div>
+                   </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Cari</button>
+            </div>
+        </form>
+      </div>
+    </div>

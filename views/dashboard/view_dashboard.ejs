@@ -1,0 +1,157 @@
+<%- include('../partials/header.ejs') %>
+<!-- Site wrapper -->
+<div class="wrapper">
+<%- include('../partials/navbar.ejs') %>
+
+
+<%- include('../partials/sidebar.ejs') %>
+
+
+ <!-- Content Wrapper. Contains page content -->
+ <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Halaman Utama</h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+  
+    <!-- Main content -->
+    <section class="content">
+           <!-- Content Row -->
+           <div class="row">
+            <div class="col-xl-6 col-xl-8 xl-4">
+              <div class="card border-center-primary shadow h-100 py-2">
+            <canvas id="mycanvas" width="400" height="250"></canvas>
+              </div>
+            </div>      
+          </div>
+          <!-- Content Row -->
+          <br/><br/><br/>
+          <div class="row">
+          <div class="col-xl-4 col-xl-6 xl-4">
+            <div class="card border-center-primary shadow h-100 py-2">
+          <canvas id="mycanvas2" width="400" height="250"></canvas>
+            </div>
+          </div>
+          <div class="col-xl-4 col-xl-6 xl-4">
+            <div class="card border-center-primary shadow h-100 py-2">
+          <canvas id="mycanvas3" width="400" height="250"></canvas>
+            </div>
+          </div>
+        </div>
+        
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+<%- include('../partials/footer.ejs') %>
+
+</div>
+<!-- ./wrapper -->
+
+<%- include('../partials/js.ejs') %>
+<!-- Start Js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script>
+$(document).ready(function() {
+            $.ajax({
+                url: "http://localhost:3000/api/grafik1",
+                method: "GET",
+                success: function(data) {
+                    console.log(data);
+                    var label = [];
+                    var value = [];
+                    for (var i in data) {
+                        label.push(data[i].tanggal);
+                        value.push(data[i].usia);
+                    }
+                    var ctx = document.getElementById('mycanvas').getContext('2d');
+                    var chart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: label,
+                            datasets: [{
+                                label: 'Jumlah Kasus Positif',
+                                backgroundColor: 'rgb(252, 116, 101)',
+                                borderColor: 'rgb(255, 255, 255)',
+                                data: value
+                            }]
+                        },
+                        options: {}
+                    });
+                }
+            });
+        });
+
+$(document).ready(function() {
+    $.ajax({
+        url: "http://localhost:3000/api/grafik2",
+        method: "GET",
+        success: function(data) {
+            console.log(data);
+            var value = [];
+                value.push(data.muda);
+                value.push(data.sedang);
+                value.push(data.tua);
+            var ctx = document.getElementById('mycanvas2').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ["< 17", "17 - 40", "> 40" ],
+                    datasets: [{
+                        label: 'Jumlah Kasus Positif',
+                        backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f"],
+                        borderColor: 'rgb(255, 255, 255)',
+                        data: value
+                    }]
+                },
+                options: {
+                title: {
+                  display: true,
+                  text: 'Pasien Berdasarkan Umur'
+                }
+              }
+            });
+        }
+    });
+});
+
+$(document).ready(function() {
+    $.ajax({
+        url: "http://localhost:3000/api/grafik3",
+        method: "GET",
+        success: function(data) {
+            console.log(data);
+            var value = [];
+                value.push(data.sembuh);
+                value.push(data.dirawat);
+                value.push(data.meninggal);
+            var ctx = document.getElementById('mycanvas3').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ["Sembuh", "Dirawat", "Meninggal" ],
+                    datasets: [{
+                        label: 'Jumlah Kasus Positif',
+                        backgroundColor: ["#3cba9f", "#e8c3b9","#c45850"],
+                        borderColor: 'rgb(255, 255, 255)',
+                        data: value
+                    }]
+                },
+                options: {
+                title: {
+                  display: true,
+                  text: 'Pasien Berdasarkan Status'
+                }
+              }
+            });
+        }
+    });
+});
+</script>
